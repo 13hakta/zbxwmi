@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # zbxwmi : discovery and bulk checks of WMI items with Zabbix
 # Requires impacket (python pkg) and optionally zabbix_sender
-# version 0.1
+# version 0.1.1
 #
 # Author:
 #  Vitaly Chekryzhev (13hakta@gmail.com)
@@ -10,7 +10,7 @@
 import argparse, sys, os
 
 def main():
-	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector v0.1")
+	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector v0.1.1")
 	parser.add_argument('cls', action='store', help='<WMI Class>')
 	parser.add_argument('cred', type=argparse.FileType('r'), help='<Credential file>')
 	parser.add_argument('target', action='store', help='<targetName or address>')
@@ -51,7 +51,7 @@ def main():
 		emulatekey = True
 
 	if (options.action == 'get' and options.fields and len(options.fields.split(',')) != 1):
-		print "action 'get' requires only one item"
+		print("action 'get' requires only one item")
 		exit(1)
 
 	username = options.cred.readline().strip()
@@ -106,37 +106,37 @@ def main():
 			iEnum = iWbemServices.ExecQuery(query)
 
 			while True:
-			    try:
-				pEnum = iEnum.Next(0xffffffff, 1)[0]
-				record = pEnum.getProperties()
+				try:
+					pEnum = iEnum.Next(0xffffffff, 1)[0]
+					record = pEnum.getProperties()
 
-				j = {}
+					j = {}
 
-				for k in record:
-					if type(record[k]['value']) is list:
-						j[k] = []
-						for item in record[k]['value']:
-							j[k].append(item)
-					else:
-						j[k] = record[k]['value']
+					for k in record:
+						if type(record[k]['value']) is list:
+							j[k] = []
+							for item in record[k]['value']:
+								j[k].append(item)
+						else:
+							j[k] = record[k]['value']
 
-				response.append(j) # the response output
-			    except Exception as e:
+					response.append(j) # the response output
+				except Exception as e:
 					if str(e).find('S_FALSE') < 0:
-					    raise
+						raise
 					else:
-					    break
+						break
 
 			iEnum.RemRelease()
 		except Exception as e:
-		    print "An error occured: " + str(e)
+			print("An error occured: " + str(e))
 
 		iWbemServices.RemRelease()
 		dcom.disconnect()
 
 		# What to do with the results ?
 		if options.action == 'get':
-			print str(response[0][options.fields])
+			print(str(response[0][options.fields]))
 		elif options.action == 'bulk':
 			send2zabbix(response, key, options.target, options.sender, options.server)
 		elif options.action == 'json':
@@ -147,10 +147,10 @@ def main():
 			send2zabbix(response, key, options.target, options.sender, options.server)
 			discovery_json(response)
 		else:
-			print "Invalid action."
+			print("Invalid action.")
 			exit(1)
 	except Exception as e:
-		print "An error occured: " + str(e)
+		print("An error occured: " + str(e))
 		try:
 			dcom.disconnect()
 		except:
@@ -172,12 +172,12 @@ def discovery_json(data):
 			res.append('"' + key + '": "' + str(eachItem[k]) + '"')
 		output.append('{' + ', '.join(res) + '}')
 
-	print '{ "data": [', ', '.join(output), '] }'
+	print('{ "data": [', ', '.join(output), '] }')
 
 def send2zabbix_json(data):
 
 	"""
-	Display a JSON-formatted index for Zabbix bulk
+	Display a JSON-forma	tted index for Zabbix bulk
 
 	"""
 
@@ -189,7 +189,7 @@ def send2zabbix_json(data):
 			res.append('"' + k + '": "' + str(eachItem[k]) + '"')
 		output.append('{' + ', '.join(res) + '}')
 
-	print "[" + ','.join(output) + "]"
+	print("[" + ','.join(output) + "]")
 
 
 def send2zabbix(data, key, host, sender, server):
@@ -213,9 +213,9 @@ def send2zabbix(data, key, host, sender, server):
 
 	try:
 		p = subprocess.Popen([sender, '-r', '-z', server, '-i', '-'], stdin=subprocess.PIPE, stdout=f, stderr=f)
-		p.communicate(output)
+		p.communicate(output.encode())
 	except Exception as e:
-		print "An error occured with zabbix_sender. " + str(e)
+		print("An error occured with zabbix_sender. " + str(e))
 		exit(1)
 
 if __name__ == '__main__':
