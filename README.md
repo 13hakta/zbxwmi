@@ -18,7 +18,7 @@ usage: zbxwmi [-h] [-action ACTION] [-namespace NAMESPACE] [-key KEY]
               [-rpc-auth-level [{integrity,privacy,default}]]
               cls cred target
 
-Zabbix WMI connector v0.1
+Zabbix WMI connector v0.1.1
 
 positional arguments:
   cls                   <WMI Class>
@@ -62,38 +62,16 @@ Put `zbxwmi` script to `/usr/lib/zabbix/externalscripts` and set permissions:
 # chown root.root zbxwmi
 ```
 
-In zabbix appliance by default python alternative is not set, though it has version 3.5, but impacket зависит от python 2.x, and so you need to install python 2.x with few dependencies.
+Install required python modules:
 
 ```sh
-# apt install python2
-```
-
-Set association to make Python v2.x default:
-
-```sh
-# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-# update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
-# update-alternatives --config python
-```
-
-Choose 1.
-
-```sh
-# apt install python-pip python-setuptools
-```
-
-Update pip and install `impacket` dependencies:
-
-```sh
-# pip install --upgrade pip
-# pip install pycryptodome
-# pip install pyasn1
+# apt install python3-six python3-pycryptodome python3-pyasn1
 ```
 
 Install [impacket](https://github.com/CoreSecurity/impacket) library.
 
-Download from github or [stripped down](http://13hakta.ru/assets/components/fileattach/connector.php?action=web/download&ctx=web&fid=RQH0Ql9udJgAkEKRXYnvZQzaXNGOIiCz) version sufficient to perform WMI calls.
-Unpack contents to directory `/usr/lib/python2.7`.
+Download from github or [stripped down](https://13hakta.ru/assets/components/fileattach/connector.php?action=web/download&ctx=web&fid=MDK5dMZwyEHoTNkHGkamjLSs7fIpRXTh) version sufficient to perform WMI calls.
+Unpack contents to directory `/usr/lib/python3.6` (check a corresponding version).
 
 Create file /etc/zabbix/wmi.pw with login, password and domain one parameter per line. Set file access:
 
