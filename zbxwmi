@@ -9,30 +9,33 @@
 import argparse, sys, os
 
 def main():
-	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector v0.1.1")
-	parser.add_argument('cls', action='store', help='<WMI Class>')
-	parser.add_argument('cred', type=argparse.FileType('r'), help='<Credential file>')
-	parser.add_argument('target', action='store', help='<targetName or address>')
+	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector")
+	parser.add_argument('-v', '--version', action='version', version='0.1.2')
+	parser.add_argument('cls', metavar='class', help='WMI class')
+	parser.add_argument('target', help='target address')
 
-	parser.add_argument('-action', action='store', default='get', help='The action to take. Possible values : get, bulk, json, discover, both')
-	parser.add_argument('-namespace', action='store', default='//./root/cimv2', help='namespace name (default //./root/cimv2)')
+	parser.add_argument('-action', default='get', choices=['get', 'bulk', 'json', 'discover', 'both'], help='Action to take (default: %(default)s)')
+	parser.add_argument('-namespace', default='//./root/cimv2', help='namespace name (default: %(default)s)')
 
-	parser.add_argument('-key', action='store', help='Key')
-	parser.add_argument('-fields', action='store', help='Field list delimited by comma')
-	parser.add_argument('-filter', action='store', default='', help='Filter')
-	parser.add_argument('-item', action='store', default='', help='Selected item')
+	parser.add_argument('-key', help='Key')
+	parser.add_argument('-fields', help='Field list delimited by comma')
+	parser.add_argument('-filter', default='', help='Filter')
+	parser.add_argument('-item', default='', help='Selected item')
 
-	parser.add_argument('-server', action='store', default='127.0.0.1', help='Zabbix server')
-	parser.add_argument('-sender', action='store', default='/usr/bin/zabbix_sender', help='Zabbix sender')
+	group = parser.add_argument_group('Zabbix')
 
-	group = parser.add_argument_group('authentication')
+	group.add_argument('-server', metavar='address', default='127.0.0.1', help='Zabbix server (default: %(default)s)')
+	group.add_argument('-sender', metavar='path', default='/usr/bin/zabbix_sender', help='Zabbix sender (default: %(default)s)')
 
-	group.add_argument('-dc-ip', action='store',metavar = "ip address",	help='IP Address of the domain controller. If '
-										 'ommited it use the domain part (FQDN) specified in the target parameter')
-	group.add_argument('-rpc-auth-level', choices=['integrity', 'privacy','default'], nargs='?', default='default',
-										 help='default, integrity (RPC_C_AUTHN_LEVEL_PKT_INTEGRITY) or privacy '
-													'(RPC_C_AUTHN_LEVEL_PKT_PRIVACY). For example CIM path "root/MSCluster" would require '
-													'privacy level by default)')
+	group = parser.add_argument_group('Authentication')
+
+	group.add_argument('-cred', type=argparse.FileType('r'), default='/etc/zabbix/wmi.pw', help='Credential file (default: %(default)s)')
+
+	group.add_argument('-dc-ip', metavar = "ip address", help='IP Address of the domain controller. If '
+										'ommited it use the domain part (FQDN) specified in the target parameter')
+	group.add_argument('-rpc-auth-level', choices=['integrity', 'privacy', 'default'], nargs='?', default='default',
+										help='integrity (RPC_C_AUTHN_LEVEL_PKT_INTEGRITY) or privacy '
+													'(RPC_C_AUTHN_LEVEL_PKT_PRIVACY). (default: %(default)s)')
 
 	if len(sys.argv) == 1:
 			parser.print_help()
