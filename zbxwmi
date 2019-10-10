@@ -2,7 +2,6 @@
 #
 # zbxwmi : discovery and bulk checks of WMI items with Zabbix
 # Requires impacket (python pkg) and optionally zabbix_sender
-# version 0.1.1
 #
 # Author:
 #  Vitaly Chekryzhev (13hakta@gmail.com)
