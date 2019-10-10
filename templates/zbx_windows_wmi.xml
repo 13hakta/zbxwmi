@@ -71,7 +71,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -119,7 +119,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -167,7 +167,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -215,7 +215,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -263,7 +263,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -311,7 +311,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -359,7 +359,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -407,7 +407,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -459,7 +459,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -511,7 +511,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
@@ -519,7 +519,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                    <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec&quot;,&quot;-filter&quot;,&quot;Name='_Total'&quot;,&quot;Win32_PerfRawData_PerfDisk_LogicalDisk&quot;,{HOST.HOST}]</key>
                     <delay>5m</delay>
                     <history>3600</history>
                     <trends>0</trends>
@@ -560,7 +560,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                    <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     <delay>5m</delay>
                     <history>3600</history>
                     <trends>0</trends>
@@ -603,7 +603,7 @@
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbxwmi[&quot;-action&quot;,&quot;discover&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;VolumeName&quot;,&quot;-filter&quot;,&quot;MediaType=12&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,{HOST.HOST}]</key>
+                    <key>zbxwmi[&quot;-action&quot;,&quot;discover&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;VolumeName&quot;,&quot;-filter&quot;,&quot;MediaType=12&quot;,&quot;Win32_LogicalDisk&quot;,{HOST.HOST}]</key>
                     <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -680,7 +680,7 @@
                                 </application_prototype>
                             </application_prototypes>
                             <master_item_prototype>
-                                <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,&quot;{HOST.HOST}&quot;]</key>
+                                <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{HOST.HOST}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -733,7 +733,7 @@
                                 </application_prototype>
                             </application_prototypes>
                             <master_item_prototype>
-                                <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,&quot;{HOST.HOST}&quot;]</key>
+                                <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{HOST.HOST}&quot;]</key>
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
@@ -787,7 +787,7 @@
                             <type>10</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{$WMI_AUTHFILE}&quot;,&quot;{HOST.HOST}&quot;]</key>
+                            <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-k&quot;,&quot;DeviceID&quot;,&quot;-fields&quot;,&quot;FreeSpace,Size&quot;,&quot;-item&quot;,&quot;{#WMI.DEVICEID}&quot;,&quot;Win32_LogicalDisk&quot;,&quot;{HOST.HOST}&quot;]</key>
                             <delay>5m</delay>
                             <history>3600</history>
                             <trends>0</trends>
