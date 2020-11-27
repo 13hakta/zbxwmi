@@ -71,7 +71,7 @@
                     </preprocessing>
                     <jmx_endpoint/>
                     <master_item>
-                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
+                        <key>zbxwmi[&quot;-action&quot;,&quot;json&quot;,&quot;-type&quot;,&quot;n&quot;,&quot;-fields&quot;,&quot;PercentProcessorTime&quot;,&quot;-filter&quot;,&quot;Name&lt;&gt;'_Total'&quot;,&quot;Win32_PerfFormattedData_PerfOS_Processor&quot;,{HOST.HOST}]</key>
                     </master_item>
                 </item>
                 <item>
