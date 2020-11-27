@@ -14,10 +14,16 @@ Operates in 4 modes:
 ```
 usage: zbxwmi [-h] [-v] [-action {get,bulk,json,discover,both}]
               [-namespace NAMESPACE] [-key KEY] [-fields FIELDS]
-              [-filter FILTER] [-item ITEM] [-server address] [-sender path]
-              [-cred CRED] [-dc-ip ip address]
-              [-rpc-auth-level [{integrity,privacy,default}]]
+              [-filter FILTER] [-type TYPE] [-item ITEM]
+              [-server address] [-sender path] [-cred CRED]
+              [-dc-ip ip address] [-rpc-auth-level [{integrity,privacy,default}]]
               class target
+
+usage: zbxwmi [-h] [-v] [-action {get,bulk,json,discover,both}] [-namespace NAMESPACE] [-key KEY] [-fields FIELDS] [-type TYPE] [-filter FILTER]
+              [-item ITEM] [-server address] [-sender path] [-cred CRED] [-dc-ip ip address] [-rpc-auth-level [{integrity,privacy,default}]]
+              class target
+
+
 
 Zabbix WMI connector
 
@@ -33,6 +39,7 @@ optional arguments:
   -namespace NAMESPACE  namespace name (default: //./root/cimv2)
   -key KEY              Key
   -fields FIELDS        Field list delimited by comma
+  -type TYPE            Field type hint delimited by comma: n - number, s - string (default)
   -filter FILTER        Filter
   -item ITEM            Selected item
 
@@ -80,7 +87,15 @@ Create file /etc/zabbix/wmi.pw with login, password and domain one parameter per
 ```sh
 # chmod 640 /etc/zabbix/wmi.pw
 # chown zabbix.zabbix /etc/zabbix/wmi.pw
+
 ```
+
+## Empty values
+
+For string type returned '' (empty string). For numeric type returned '0'.
+If a field assumed to be numeric then you should set type hinting for this field.
+
+Let say you have 4 fields: 1 is string, 2 is number, 3 is number, 4 is a string then you must add option: `-type s,n,n,s`
 
 ## Examples
 
@@ -149,15 +164,15 @@ Outputs kind of:
 
 Get processor load:
 
-`zbxwmi["-action","discover","-fields","PercentProcessorTime","-filter","Name<>'_Total'","Win32_PerfFormattedData_PerfOS_Processor",{HOST.HOST}]`
+`zbxwmi["-action","discover","-type","n","-fields","PercentProcessorTime","-filter","Name<>'_Total'","Win32_PerfFormattedData_PerfOS_Processor",{HOST.HOST}]`
 
 Get disk I/O load:
 
-`zbxwmi["-action","-json","-k","Name","-fields","DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec,CurrentDiskQueueLength","-filter","Name='_Total'","Win32_PerfRawData_PerfDisk_LogicalDisk",{HOST.HOST}]`
+`zbxwmi["-action","-json","-k","Name","-type","n,n,n,n,n","-fields","DiskWritesPersec,DiskWriteBytesPersec,DiskReadsPersec,DiskReadBytesPersec,CurrentDiskQueueLength","-filter","Name='_Total'","Win32_PerfRawData_PerfDisk_LogicalDisk",{HOST.HOST}]`
 
 Get memory load:
 
-`zbxwmi["-action","-json","-fields","AvailableBytes,CommitLimit,CommittedBytes","Win32_PerfRawData_PerfOS_Memory",{HOST.HOST}]`
+`zbxwmi["-action","-json","-type","n,n,n","-fields","AvailableBytes,CommitLimit,CommittedBytes","Win32_PerfRawData_PerfOS_Memory",{HOST.HOST}]`
 
 ## Zabbix usage
 
