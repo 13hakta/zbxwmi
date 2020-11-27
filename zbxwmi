@@ -174,7 +174,7 @@ def main():
 
 def tval(k, v):
 	if hints[k] == 's':
-		return [v, ''][v is None]
+		return ['"' + v + '"', '""'][v is None]
 
 	if hints[k] == 'n':
 		return [str(v), '0'][v is None]
@@ -192,7 +192,7 @@ def discovery_json(data):
 		res = []
 		for k in eachItem:
 			key = '{#WMI.' + k.upper() + '}'
-			res.append('"' + key + '": "' + tval(k, eachItem[k]) + '"')
+			res.append('"' + key + '": ' + tval(k, eachItem[k]))
 		output.append('{' + ', '.join(res) + '}')
 
 	print('{ "data": [', ', '.join(output), '] }')
@@ -207,7 +207,7 @@ def send2zabbix_json(data):
 	output = []
 
 	for eachItem in data:
-		res = ['"' + k + '": "' + tval(k, eachItem[k]) + '"' for k in eachItem]
+		res = ['"' + k + '": ' + tval(k, eachItem[k]) for k in eachItem]
 
 		output.append('{' + ', '.join(res) + '}')
 
@@ -226,7 +226,7 @@ def send2zabbix(data, key, host, sender, server):
 	for eachItem in data:
 		val = "[" + str(eachItem.pop(key)) + "] "
 		for k in eachItem:
-			output += host + " " + k + val + tval(k, eachItem[k]) + "\n"
+			output += host + " " + k + val + ' ' + tval(k, eachItem[k]) + "\n"
 
 	# Send the values to the server
 	import subprocess
