@@ -9,6 +9,8 @@
 import argparse, sys, os
 
 def main():
+	global hints
+	hints = {'Name': 's'}
 	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector")
 	parser.add_argument('-v', '--version', action='version', version='0.1.3')
 	parser.add_argument('cls', metavar='class', help='WMI class')
@@ -53,25 +55,29 @@ def main():
 		key = 'Name'
 		emulatekey = True
 
-	fieldlist = options.fields.split(',')
+	if options.fields is None:
+		fieldlist = []
+	else:
+		fieldlist = options.fields.split(',')
 
 	if (options.action == 'get' and options.fields and len(fieldlist) != 1):
 		print("action 'get' requires only one item")
-		exit(1)
+		sys.exit(1)
 
-	idx = 0
-	hintlist = options.type.split(',')
-	for f in fieldlist:
-		if idx < len(hintlist):
-			hints[f] = hintlist[idx]
-		else:
-			hints[f] = 's'
+	if options.type is not None:
+		idx = 0
+		hintlist = options.type.split(',')
+		for f in fieldlist:
+			if idx < len(hintlist):
+				hints[f] = hintlist[idx]
+			else:
+				hints[f] = 's'
+			idx += 1
 
-		idx += 1
-
-	username = options.cred.readline().strip()
-	password = options.cred.readline().strip()
-	domain = options.cred.readline().strip()
+	with options.cred as cred_file:
+		username = cred_file.readline().strip()
+		password = cred_file.readline().strip()
+		domain = cred_file.readline().strip()
 
 	from impacket.dcerpc.v5.dtypes import NULL
 	from impacket.dcerpc.v5.dcom import wmi
@@ -99,7 +105,11 @@ def main():
 			options.fields = key
 			query += key
 		else:
-			query += key + ',' + options.fields
+			# Avoid duplicating key if it's already in fields
+			if key in fieldlist:
+				query += options.fields
+			else:
+				query += key + ',' + options.fields
 
 		query += " FROM " + options.cls
 
@@ -145,13 +155,16 @@ def main():
 
 			iEnum.RemRelease()
 		except Exception as e:
-			print("An error occured: " + str(e))
+			print("An error occurred: " + str(e))
 
 		iWbemServices.RemRelease()
 		dcom.disconnect()
 
 		# What to do with the results ?
 		if options.action == 'get':
+			if len(response) == 0:
+				print("No data returned")
+				sys.exit(1)
 			print(str(response[0][options.fields]))
 		elif options.action == 'bulk':
 			send2zabbix(response, key, options.target, options.sender, options.server)
@@ -164,20 +177,26 @@ def main():
 			discovery_json(response)
 		else:
 			print("Invalid action.")
-			exit(1)
+			sys.exit(1)
 	except Exception as e:
-		print("An error occured: " + str(e))
+		print("An error occurred: " + str(e))
 		try:
 			dcom.disconnect()
 		except:
 			pass
 
 def tval(k, v):
-	if hints[k] == 's':
-		return ['"' + v + '"', '""'][v is None]
+	hint = hints.get(k, 's')
+	if hint == 's':
+		if v is None:
+			return '""'
+		return '"' + str(v).replace('\\', '\\\\').replace('"', '\\"') + '"'
 
-	if hints[k] == 'n':
-		return [str(v), '0'][v is None]
+	if hint == 'n':
+		if v is None:
+			return '0'
+		return str(v)
+	return str(v)
 
 def discovery_json(data):
 
@@ -224,8 +243,11 @@ def send2zabbix(data, key, host, sender, server):
 	# Contruct the input for zabbix_sender
 	output = ""
 	for eachItem in data:
-		val = "[" + str(eachItem.pop(key)) + "] "
+		key_val = eachItem.get(key, '')
+		val = "[" + str(key_val) + "] "
 		for k in eachItem:
+			if k == key:
+				continue
 			output += host + " " + k + val + ' ' + tval(k, eachItem[k]) + "\n"
 
 	# Send the values to the server
@@ -237,9 +259,8 @@ def send2zabbix(data, key, host, sender, server):
 		p = subprocess.Popen([sender, '-r', '-z', server, '-i', '-'], stdin=subprocess.PIPE, stdout=f, stderr=f)
 		p.communicate(output.encode())
 	except Exception as e:
-		print("An error occured with zabbix_sender. " + str(e))
-		exit(1)
+		print("An error occurred with zabbix_sender. " + str(e))
+		sys.exit(1)
 
 if __name__ == '__main__':
-	hints = {'Name': 's'}
 	main()
