@@ -12,9 +12,9 @@ def main():
 	global hints
 	hints = {'Name': 's'}
 	parser = argparse.ArgumentParser(add_help = True, description = "Zabbix WMI connector")
-	parser.add_argument('-v', '--version', action='version', version='0.1.3')
+	parser.add_argument('-v', '--version', action='version', version='0.1.4')
 	parser.add_argument('cls', metavar='class', help='WMI class')
-	parser.add_argument('target', help='target address')
+	parser.add_argument('target', help='Target address. Must be FQDN for kerberos auth type')
 
 	parser.add_argument('-action', default='get', choices=['get', 'bulk', 'json', 'discover', 'both'], help='Action to take (default: %(default)s)')
 	parser.add_argument('-namespace', default='//./root/cimv2', help='namespace name (default: %(default)s)')
@@ -32,7 +32,10 @@ def main():
 
 	group = parser.add_argument_group('Authentication')
 
-	group.add_argument('-cred', type=argparse.FileType('r'), default='/etc/zabbix/wmi.pw', help='Credential file (default: %(default)s)')
+	group.add_argument('-cred', type=argparse.FileType('r'), default='/etc/zabbix/wmi.pw', help='Credential file (default: %(default)s). '
+					'Contain values per line: username, password, domain')
+
+	group.add_argument('-a', '--auth-type', default='ntlm', choices=['ntlm', 'kerberos'], help='Authentication type')
 
 	group.add_argument('-dc-ip', metavar = "ip address", help='IP Address of the domain controller. If '
 										'ommited it use the domain part (FQDN) specified in the target parameter')
@@ -58,7 +61,8 @@ def main():
 	if options.fields is None:
 		fieldlist = []
 	else:
-		fieldlist = options.fields.split(',')
+		fieldlist = [f.strip() for f in options.fields.split(',') if f.strip()]
+		options.fields = ','.join(fieldlist)
 
 	if (options.action == 'get' and options.fields and len(fieldlist) != 1):
 		print("action 'get' requires only one item")
@@ -69,10 +73,12 @@ def main():
 		hintlist = options.type.split(',')
 		for f in fieldlist:
 			if idx < len(hintlist):
-				hints[f] = hintlist[idx]
+				hints[f] = hintlist[idx].strip()
 			else:
 				hints[f] = 's'
 			idx += 1
+
+	kerberosEnabled = options.auth_type == 'kerberos'
 
 	with options.cred as cred_file:
 		username = cred_file.readline().strip()
@@ -85,8 +91,18 @@ def main():
 	from impacket.dcerpc.v5.rpcrt import RPC_C_AUTHN_LEVEL_PKT_PRIVACY, RPC_C_AUTHN_LEVEL_PKT_INTEGRITY, RPC_C_AUTHN_LEVEL_NONE
 
 	try:
-		dcom = DCOMConnection(options.target, username, password, domain, '', '', '', oxidResolver=True,
-													doKerberos=False, kdcHost=options.dc_ip)
+		dcom = DCOMConnection(
+			options.target,
+			username,
+			password,
+			domain,
+			'',
+			'',
+			'',
+			oxidResolver=True,
+			doKerberos=kerberosEnabled,
+			kdcHost=options.dc_ip)
+
 		iInterface = dcom.CoCreateInstanceEx(wmi.CLSID_WbemLevel1Login, wmi.IID_IWbemLevel1Login)
 		iWbemLevel1Login = wmi.IWbemLevel1Login(iInterface)
 		iWbemServices = iWbemLevel1Login.NTLMLogin(options.namespace, NULL, NULL)
@@ -101,7 +117,7 @@ def main():
 		# Construct the query
 		query = "SELECT "
 
-		if options.fields is None:
+		if not options.fields:
 			options.fields = key
 			query += key
 		else:
@@ -155,7 +171,8 @@ def main():
 
 			iEnum.RemRelease()
 		except Exception as e:
-			print("An error occurred: " + str(e))
+			print("Query error: " + str(e))
+			print("Query: " + query)
 
 		iWbemServices.RemRelease()
 		dcom.disconnect()
@@ -165,7 +182,12 @@ def main():
 			if len(response) == 0:
 				print("No data returned")
 				sys.exit(1)
-			print(str(response[0][options.fields]))
+			# Apply type hinting like other actions do (None -> 0 for numbers)
+			value = response[0][options.fields]
+			hint = hints.get(options.fields, 's')
+			if value is None:
+				value = 0 if hint == 'n' else ''
+			print(str(value))
 		elif options.action == 'bulk':
 			send2zabbix(response, key, options.target, options.sender, options.server)
 		elif options.action == 'json':
@@ -220,7 +242,6 @@ def send2zabbix_json(data):
 
 	"""
 	Display a JSON-formatted index for Zabbix bulk
-
 	"""
 
 	output = []
@@ -237,7 +258,6 @@ def send2zabbix(data, key, host, sender, server):
 
 	"""
 	Bulk inserts data into Zabbix using zabbix_sender
-
 	"""
 
 	# Contruct the input for zabbix_sender
